@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "advanced-search/block",
+  "version": "1.0.0",
+  "title": "Advanced Search Block",
+  "category": "widgets",
+  "description": "A powerful search block with keyword, category, and tag filtering.",
+  "keywords": [
+    "search",
+    "filter",
+    "category",
+    "tag",
+    "advanced"
+  ],
+  "textdomain": "advanced-search-block",
+  "attributes": {
+    "showTags": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "postsPerPage": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "supports": {
+    "align": [
+      "left",
+      "right",
+      "center",
+      "wide",
+      "full"
+    ],
+    "html": false,
+    "multiple": true,
+    "reusable": true,
+    "inserter": true
+  },
+  "editorScript": "file:../build/edit.js",
+  "editorStyle": "file:../build/style-style-index.css",
+  "style": "file:../build/style-style-index.css",
+  "render": "file:./render.php"
+}

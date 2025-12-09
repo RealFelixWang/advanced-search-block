@@ -18,7 +18,7 @@
     "search",
     "advanced-search"
   ],
-  "author": "Your Name",
+  "author": "Felix Wang <https://github.com/RealFelixWang/>",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@types/react": "^18.2.0",

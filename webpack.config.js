@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, 'src', 'index.tsx'),
         frontend: path.resolve(__dirname, 'src', 'frontend.tsx'),
-        edit: path.resolve(__dirname, 'src', 'edit.tsx'),
+        edit: path.resolve(__dirname, 'src', 'block.tsx'),
         'style-index': path.resolve(__dirname, 'src', 'style.scss'),
     },
     output: {
@@ -38,5 +38,16 @@ module.exports = {
     resolve: {
         ...defaultConfig.resolve,
         extensions: ['.tsx', '.ts', '.js', '.jsx']
+    },
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        '@wordpress/i18n': ['wp', 'i18n'],
+        '@wordpress/blocks': ['wp', 'blocks'],
+        '@wordpress/block-editor': ['wp', 'blockEditor'],
+        '@wordpress/components': ['wp', 'components'],
+        '@wordpress/data': ['wp', 'data'],
+        '@wordpress/element': ['wp', 'element'],
+        '@wordpress/api-fetch': ['wp', 'apiFetch']
     }
 };

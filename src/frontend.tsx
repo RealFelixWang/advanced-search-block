@@ -5,7 +5,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
 import apiFetch from '@wordpress/api-fetch';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
@@ -211,7 +210,9 @@ const App: React.FC<{ attributes: BlockAttributes }> = ({ attributes }) => {
  * Initialize the app on all block instances
  */
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Advanced Search Block: DOM content loaded');
   const blocks = document.querySelectorAll('.advanced-search-block');
+  console.log(`Advanced Search Block: Found ${blocks.length} block instances`);
   
   blocks.forEach((block) => {
     const attributesData = block.getAttribute('data-attributes');
@@ -223,7 +224,29 @@ document.addEventListener('DOMContentLoaded', () => {
           postsPerPage: 10,
         };
     
-    const root = createRoot(block);
-    root.render(<App attributes={attributes} />);
+    console.log('Advanced Search Block: Block attributes', attributes);
+    
+    // 检查wp.element是否可用
+    if (!window.wp || !window.wp.element) {
+      console.error('Advanced Search Block: wp.element not available');
+      return;
+    }
+    
+    // 检查createRoot是否可用
+    if (!window.wp.element.createRoot) {
+      console.error('Advanced Search Block: createRoot not available in wp.element');
+      console.log('Available wp.element methods:', Object.keys(window.wp.element));
+      return;
+    }
+    
+    try {
+      // 使用createRoot方法
+      const { createRoot } = window.wp.element;
+      const root = createRoot(block);
+      root.render(window.wp.element.createElement(App, { attributes }));
+      console.log('Advanced Search Block: Block initialized successfully');
+    } catch (error) {
+      console.error('Advanced Search Block: Error initializing block', error);
+    }
   });
 });
