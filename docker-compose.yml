@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   # WordPress Service
   wordpress:
-    image: wordpress:latest
+    image: wordpress:6.9
     container_name: asb-wordpress
     ports:
       - "8080:80"
@@ -19,6 +17,8 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    networks:
+      - asb-network
 
   # MySQL Database Service
   db:
@@ -31,9 +31,13 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     restart: unless-stopped
+    networks:
+      - asb-network
+    command: --default-authentication-plugin=mysql_native_password
 
   # PHPMyAdmin Service (Optional)
   phpmyadmin:
@@ -47,7 +51,15 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    networks:
+      - asb-network
+
+networks:
+  asb-network:
+    driver: bridge
 
 volumes:
   wordpress_data:
+    driver: local
   db_data:
+    driver: local
