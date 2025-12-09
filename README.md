@@ -2,6 +2,8 @@
 
 A powerful WordPress advanced search block plugin that provides a search interface with category and tag filtering capabilities.
 
+**WordPress Compatibility:** This plugin is built and tested for WordPress 6.9.
+
 ## Features
 
 - **Keyword Search** - Support keyword search in post titles and content
