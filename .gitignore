@@ -65,7 +65,6 @@ ehthumbs.db
 Thumbs.db
 
 # WordPress specific
-*.sql
 *.tar.gz
 wp-config-local.php
 
