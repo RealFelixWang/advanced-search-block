@@ -1,0 +1,42 @@
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
+
+module.exports = {
+    ...defaultConfig,
+    entry: {
+        index: path.resolve(__dirname, 'src', 'index.tsx'),
+        frontend: path.resolve(__dirname, 'src', 'frontend.tsx'),
+        edit: path.resolve(__dirname, 'src', 'edit.tsx'),
+        'style-index': path.resolve(__dirname, 'src', 'style.scss'),
+    },
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: '[name].js',
+    },
+    module: {
+        ...defaultConfig.module,
+        rules: [
+            ...defaultConfig.module.rules,
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                                '@babel/preset-typescript'
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    resolve: {
+        ...defaultConfig.resolve,
+        extensions: ['.tsx', '.ts', '.js', '.jsx']
+    }
+};
